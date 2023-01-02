@@ -15,9 +15,9 @@ func TestPrecision(t *testing.T) {
 		{input: "1997", want: PrecisionYear},
 		{input: "1997-07", want: PrecisionMonth},
 		{input: "1997-07-16", want: PrecisionDay},
-		{input: "1997-07-16T19:20+01:00", want: PrecisionHours},
-		{input: "1997-07-16T19:20:30+01:00", want: PrecisionSeconds},
-		{input: "1997-07-16T19:20:30.45+01:00", want: PrecisionNanoseconds},
+		{input: "1997-07-16T19:20+01:00", want: PrecisionHour},
+		{input: "1997-07-16T19:20:30+01:00", want: PrecisionSecond},
+		{input: "1997-07-16T19:20:30.45+01:00", want: PrecisionNanosecond},
 		{input: "invalid", want: PrecisionUnknown},
 	}
 

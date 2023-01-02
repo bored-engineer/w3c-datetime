@@ -18,11 +18,11 @@ func (p Precision) Layout() string {
 		return "2006-01"
 	case PrecisionDay:
 		return "2006-01-02"
-	case PrecisionHours:
+	case PrecisionHour:
 		return "2006-01-02T15:04Z07:00"
-	case PrecisionSeconds:
+	case PrecisionSecond:
 		return "2006-01-02T15:04:05Z07:00"
-	case PrecisionNanoseconds:
+	case PrecisionNanosecond:
 		return "2006-01-02T15:04:05.999999999Z07:00"
 	default:
 		return ""
@@ -38,11 +38,11 @@ func (p Precision) String() string {
 		return "YYYY-MM"
 	case PrecisionDay:
 		return "YYYY-MM-DD"
-	case PrecisionHours:
+	case PrecisionHour:
 		return "YYYY-MM-DDThh:mmTZD"
-	case PrecisionSeconds:
+	case PrecisionSecond:
 		return "YYYY-MM-DDThh:mm:ssTZD"
-	case PrecisionNanoseconds:
+	case PrecisionNanosecond:
 		return "YYYY-MM-DDThh:mm:ss.sTZD"
 	default:
 		return ""
@@ -59,12 +59,12 @@ func ParsePrecision(datetime string) Precision {
 		count := strings.Count(datetime[idx:jdx], ":")
 		switch {
 		case count == 1 && jdx == 16:
-			return PrecisionHours
+			return PrecisionHour
 		case count == 2 && jdx >= 19:
 			if strings.ContainsRune(datetime[idx:jdx], '.') {
-				return PrecisionNanoseconds
+				return PrecisionNanosecond
 			} else {
-				return PrecisionSeconds
+				return PrecisionSecond
 			}
 		}
 	} else if idx == -1 {
@@ -90,11 +90,11 @@ const (
 	// Complete date: YYYY-MM-DD (eg 1997-07-16)
 	PrecisionDay
 	// Complete date plus hours and minutes: YYYY-MM-DDThh:mmTZD (eg 1997-07-16T19:20+01:00)
-	PrecisionHours
+	PrecisionHour
 	// Complete date plus hours, minutes and seconds: YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
-	PrecisionSeconds
+	PrecisionSecond
 	// Complete date plus hours, minutes, seconds and a decimal fraction of a second YYYY-MM-DDThh:mm:ss.sTZD (eg 1997-07-16T19:20:30.45+01:00)
-	PrecisionNanoseconds
+	PrecisionNanosecond
 )
 
 // Time represents a W3C datetime
@@ -104,9 +104,9 @@ type Time struct {
 	Precision Precision
 }
 
-// New creates a Time with the highest precision (PrecisionNanoseconds)
+// New creates a Time with the highest precision (PrecisionNanosecond)
 func New(t time.Time) Time {
-	return NewWithPrecision(t, PrecisionNanoseconds)
+	return NewWithPrecision(t, PrecisionNanosecond)
 }
 
 // New creates a Time with the specified precision
